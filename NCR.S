@@ -1,18 +1,18 @@
 	AREA NCR,CODE
 	MOV R0,#6
 	MOV R1,#3
-	BL FACT
+	BL FACT			//computes fact of n
 	MOV R3,R2
 	MOV R0,#6
 	SUB R0,R0,R1
-	BL FACT
+	BL FACT			//computes fact of n-r
 	MOV R4,R2
 	MOV R0,R1
-	BL FACT
-	MUL R4,R2,R4
+	BL FACT			//computes fact of r
+	MUL R4,R2,R4		//r4 is (n-r)!r!
 	MOV R5,#0
 SUB_AGIAN
-	SUBS R3,R3,R4
+	SUBS R3,R3,R4		// n! - (n-r)!r!
 	ADDPL R5,R5,#1
 	BPL SUB_AGIAN
 	LDR R0,=0X40000000
