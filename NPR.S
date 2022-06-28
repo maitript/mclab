@@ -1,15 +1,15 @@
 	AREA NPR,CODE
 	MOV R0,#6
 	MOV R1,#3
-	BL FACT
+	BL FACT			//computes fact of n
 	MOV R3,R2
 	MOV R0,#6
 	SUB R0,R0,R1
-	BL FACT
+	BL FACT			//computes fact of n-r
 	MOV R4,R2
 	MOV R5,#0
 SUB_AGIAN
-	SUBS R3,R3,R4
+	SUBS R3,R3,R4		//n! - (n-r)!
 	ADDPL R5,R5,#1
 	BPL SUB_AGIAN
 	LDR R0,=0X40000000
