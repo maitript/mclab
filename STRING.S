@@ -1,41 +1,26 @@
-	AREA STRINGS,CODE
-
-	LDR R1,=SOURCE
-	LDR R2,=STRING
-	MOV R3,#0
-	MOV R4,#0
-	BL FINDSOURCE_LEN
-RPT
-	LDRB R0,[R1]
-	LDRB R4,[R2],#1
-	CMP R4,#0
-	BEQ GO
-	CMP R0,R4
-	BNE RPT
-	MOV R5,R3
-	SUB R5,#1
-	MOV R6,R1
-	MOV R7,R2
-LOOP
-	LDRB R0,[R6,#1]!
-	LDRB R4,[R7],#1
-	CMP R0,R4
-	BNE RPT
-	SUBS R5,#1
-	BNE LOOP
-	ADD R9,#1
-	B RPT
-GO 	BAL GO
-
-FINDSOURCE_LEN
-	LDRB R4,[R1],#1
-	CMP R4,#0
-	ADDNE R3,R3,#1
-	BNE FINDSOURCE_LEN
-	SUB R1,R3
-	SUB R1,#1
-	BX LR
-SOURCE DCB "TROUBLE",0
-STRING DCB "DON`T TROUBLE TROUBLE IF YOU TROUBLE TROUBLE TROUBLE TROBULE TROUBLE YOU",0
-	END
-	
+	AREA SUBSTRING,CODE,READONLY
+CNT RN 7
+ENTRY
+		LDR R1,=M	;big
+		LDR R2,=S	;small
+		MOV R12,R2	;copy of small
+		MOV CNT,#0	;no of times small occurs 
+		
+LOOP 		LDRB R3,[R1]		;take letter of big
+		LDRB R4,[R2]		;take letter of small
+		CMP R4,#0		;see if small is zero
+		ADDEQ CNT,CNT,#1	;inrement count
+		MOVEQ R2,R12		;load small back
+		BEQ LOOP		
+		CMP R3,R4		
+		ADDEQ R2,R2,#1		;when equal pointer of small++
+		MOVNE R2,R12		;else load small back
+		ADD R1,R1,#1		;pointer of big++
+		BEQ LOOP
+		CMP R3,#0		;if big gets over exit or else branch to loop
+		BEQ STOP
+		BNE LOOP
+STOP		B STOP
+M 		DCB "ABCABC",0
+S 		DCB "ABC",0
+		END
