@@ -4,8 +4,8 @@ void pwm_init()
 	PINSEL0=0x2;
 	PWMPR=2;
 	PWMPCR=0x200;
-	PWMMR0=0xC37F;
 	PWMMCR=0x2;
+	PWMMR0=0xC37F;
 	PWMTCR=0x9;
 }
 int main()
