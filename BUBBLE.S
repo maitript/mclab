@@ -18,10 +18,9 @@ NEXT_CMP
 	STRPL R5,[R3,#-4]
 	SUBS R2,R2,#1		;decrement j after one comparison
 	BNE NEXT_CMP
-	CMP R1,#6		;if i gets exhausted quit
-	BEQ GO
 	SUBS R1,R1,#1
 	BNE NEXT_PASS
+	BEQ GO
 GO 	BAL GO
 N DCB 5
 ARRAY DCD 5,4,3,2,1
